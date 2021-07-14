@@ -1,5 +1,5 @@
 # S1x Movie Mod
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/MSp49m0rm3g/0.jpg)](https://www.youtube.com/watch?v=MSp49m0rm3g)
+[![IMAGE ALT TEXT HERE](https://i.ytimg.com/vi/MSp49m0rm3g/maxresdefault.jpg)](https://www.youtube.com/watch?v=MSp49m0rm3g)
 
 
 This is my S1x Movie Making Mod. Free to download or use code snippets in your own mod, I encourage you to learn and get into coding to have more control over your cinematics (and modding is rewarding). Mod is provided as-is, support won't be provided if you DM or reach out for support. Check out the [IW6X Scripting Guide](https://github.com/XLabsProject/iw6x-client/wiki/Scripting) for a great overview of LUA scripting for IW6x and S1x.  
