@@ -59,6 +59,11 @@ sly_player_clone `name clone_name`| `sly_player_clone RezTech MOD_SUICIDE` | Clo
 
 
 ### Dolly Camera
+Basic and advanced usage for linear & bezier dolly cams.
+Command | Usage | Description
+------------ | ------------- | -------------  
+sly_forge_model `model` | `sly_forge_model defaultactor` | Spawns a model on your location. Use `listassetpool 7` with a key to find desired models. Most models need to be precached, do so in the **precache_models()** function in `sly_precache.lua` 
+sly_forge_fx `effect` | `sly_forge_fx blood2` | Spawns an effect in front of you. Use `listassetpool 42` with a key to find desired effects and define them in the **precache_fx()** function in `sly_precache.lua`
 
 ### Spawning Models & Effects
 
@@ -88,3 +93,4 @@ sly_function dropweapon | `sly_function dropweapon` | Drops your current weapon.
 sly_function icon `material` | `sly_function icon headicon_dead` | Creates a waypoint hud element at your feet with a desired material. 
 sly_function vision `vision_name` | `sly_function vision` | Sets the player's vision to a desired vision. Some visions: `default, black_bw, aftermath, end_game, near_death_mp`
 sly_function motorbike | `sly_function motorbike` | I was testing spawning functioning vehicles. This is super jank and only works on Urban. F to enter/exit, Sprint to drive
+sly_function getplayerinfo `player_name` | `sly_function getplayerinfo RezTech` | Returns player info to your external console. Name, location, weapon, etc. Expands on this function to get more information.
