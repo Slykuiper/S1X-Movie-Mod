@@ -1,8 +1,8 @@
 # S1x Movie Mod
 
-This is my S1x Movie Making Mod. Free to download or use code snippets in your own mod, I encourage you to learn and get into coding to have more control over your cinematics (and modding is rewarding). Mod is provided as-is, support won't be provided if you DM or reach out for support.  
+This is my S1x Movie Making Mod. Free to download or use code snippets in your own mod, I encourage you to learn and get into coding to have more control over your cinematics (and modding is rewarding). Mod is provided as-is, support won't be provided if you DM or reach out for support. Check out the [IW6X Scripting Guide](https://github.com/XLabsProject/iw6x-client/wiki/Scripting) for a great overview of LUA scripting for IW6x and S1x.  
 
-There is no actual Theater Mode or demo system in Advanced Warfare. All cinematics created with this mod are recorded live in-game.  
+There is no actual Theater Mode or demo system ([confirmed](https://youtu.be/iki-tcDYsi0?t=29)) in Advanced Warfare. All cinematics created with this mod are recorded live in-game with FRAPS or OBS.  
 
 ### Installation
 Download S1x at https://xlabs.dev/s1x_download.  
@@ -20,12 +20,13 @@ Use Shift + tilde to view the extended in-game console.
 
 Command | Usage | Description
 ------------ | ------------- | -------------  
-listassetpool | `listassetpool 40 mors` |  Lists loaded in-game assets, can be filtered with keys. `listassetpool 40 mors` would return all of the MORS sniper rifle variants
-fast_restart | `fast_restart` | Restarts the game instantly
-god | `god` | Gives you unlimited health
-noclip | `noclip` | Allows you to move freely through objects
-spawnbot | `spawnbot` | Adds bots to your match. `spawnbot` will add one bot. `spawnbot 7` will add 7 bots
-kick | Kicks a bot or player from your match. | `kick RezTech`
+listassetpool | `listassetpool 40 mors` |  Lists loaded in-game assets, can be filtered with keys. `listassetpool 40 mors` would return all of the MORS sniper rifle variants.
+fast_restart | `fast_restart` | Restarts the game instantly.
+god | `god` | Gives you unlimited health.
+noclip | `noclip` | Allows you to move freely through objects.
+spawnbot | `spawnbot` | Adds bots to your match. `spawnbot` will add one bot. `spawnbot 7` will add 7 bots.
+kick | `kick RezTech` | Kicks a bot or player from your match.
+give | `give iw5_morsloot9_mp` | Gives you a specified weapon.
 
 
 ### S1x Movie Mod Commands
@@ -37,7 +38,7 @@ You can precache effects, models, animations, and materials by adding them in `s
 Player & Bot names are case sensitive.
 Command | Usage | Description
 ------------ | ------------- | -------------  
-sly_player_add `number` |`sly_player_add 4` | Adds designer number of bots to your match.
+sly_player_add `number` |`sly_player_add 4` | Adds designated number of bots to your match.
 sly_player_kick `name` | `sly_player_kick RezTech` | Kicks a player from your match. `sly_player_kick all` will kick all players.
 sly_player_kill `name` | `sly_player_kill RezTech` | Kills a player. `sly_player_kill all` will kill all players.
 sly_player_move `name` | `sly_player_move RezTech` | Moves a player to your location. `sly_player_move all` will move all players to your location.
@@ -63,5 +64,16 @@ MOD_HEAD_SHOT | `sly_player_clone RezTech MOD_SUICIDE` | Spawns a death animatio
 ### Spawning Models & Effects
 
 ### Actors
+I tried pretty hard to make "actors" a thing, but the way costumes work make it a bit complicated. Left the code in for people to tinker with, I'll share my research below.
 
 ### Misc & Util Functions
+Random debug or useful functions I made. Changing these would be a great start to tinkering with modding.
+Command | Usage | Description
+------------ | ------------- | -------------  
+sly_function savepos | `sly_function savepos` | Saves your position.
+sly_function loadpos | `sly_function loadpos` | Loads your position to the saved location.
+sly_function get key | `sly_function get` | Returns specific player variables. Some keys: `origin, health, team, score, model, angles`
+sly_function notify key | `sly_function notify beziercalc_finished` | Calls the notify() function with a specific key. Useful for debugging.
+sly_function unlink | `sly_function unlink` | Unlinks you from any linked entities. Great if you're stuck in a camera path.
+sly_function dropweapon | `sly_function dropweapon` | Drops your current weapon. Great for getting a weapon's pullout animation for clips. 
+sly_function icon material | `sly_function icon headicon_dead` | Creates a waypoint hud element at your feet with a desired material. 
