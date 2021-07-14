@@ -49,7 +49,7 @@ sly_player_unfreeze `name` | `sly_player_unfreeze RezTech` | Unfreezes a player,
 sly_player_health `name number`| `sly_player_health RezTech 50` | Set's a player's health. `sly_player_health all 50` will give all players except host the desired health. **Currently not working.**
 sly_player_weapon `name weapon_name`| `sly_player_weapon RezTech iw5_morsloot9_mp` | Gives a player a specific weapon. **Currently only works on players, not bots.**
 sly_player_model `name model_name`| `sly_player_model RezTech infected` | Set's a player's model. It's not fully developed, "infected" works since it's a single model but other models don't work since a player's "costume" consists of multiple parts and is set a different way. 
-sly_player_getcostume `name`| `sly_player_getcostume RezTech` | Saves a player's costume. Not too useful for the average user, but a useful function for saving costumes created in the Armory. `sly_player_getcostume RezTech all` will save all of the player's costumes (they have 4) to the `slymvm\costumes\` folder.
+sly_player_getcostume `name`| `sly_player_getcostume RezTech` | Saves a player's costume. Not too useful for the average user, but a useful function for saving costumes created in the Armory. `sly_player_getcostume RezTech all` will save all of the player's costumes (they have 4) to the `\slymvm\costumes\` folder.
 sly_player_setcostume `name costume_name`| `sly_player_setcostume RezTech boxer` | Set's a player's costume. Costumes aren't loaded on the fly, you need to `fast_restart` for it to take effect. **Currently only works for host**.  
 sly_player_clone `name clone_name`| `sly_player_clone RezTech MOD_SUICIDE` | Clone's a player. Using without a second variable (`sly_player_clone RezTech`), a spawn basic clone on the player, good for clearing ragdolls and dead bodies. Using a second variable will trigger a random death animation from an array of specific dead animations. See the table below for a list of useful clone types or check **line 27** of `sly_player.lua` for a full list. I added an optional hit-location argument which may affects how which death animation gets triggered. Usage `sly_player_clone RezTech MOD_IMPACT right_hand`. Check **line 59** of `sly_player.lua` for a full list. 
 ​ | `sly_player_clone RezTech clear` | Spawns 9 ragdolls on the player. Useful for clearing all ragdolls near players.
@@ -62,8 +62,28 @@ sly_player_clone `name clone_name`| `sly_player_clone RezTech MOD_SUICIDE` | Clo
 Basic and advanced usage for linear & bezier dolly cams.
 Command | Usage | Description
 ------------ | ------------- | -------------  
-sly_forge_model `model` | `sly_forge_model defaultactor` | Spawns a model on your location. Use `listassetpool 7` with a key to find desired models. Most models need to be precached, do so in the **precache_models()** function in `sly_precache.lua` 
-sly_forge_fx `effect` | `sly_forge_fx blood2` | Spawns an effect in front of you. Use `listassetpool 42` with a key to find desired effects and define them in the **precache_fx()** function in `sly_precache.lua`
+sly_cam_mode `mode` | `sly_cam_mode bezier 5` | Sets the camera mode. Available Camera Modes: `linear, bezier, save, load, path`
+* Linear
+  * Basic, linear camera movement. Second argument defines speed as seconds between each camera node. 
+  * Usage: `sly_cam_mode linear 5` will create a linear movement with 5 seconds between each node.
+* Bezier
+  * Smooth, bezier camera movement. Second argument defines speed. 
+  * Usage: `sly_cam_mode bezier 5`
+* Save
+  * Exports a camera path to the `\slymvm\campaths\` folder. Great for transitions.
+* Load
+  * Loads a saved camera path from the `\slymvm\campaths\` folder. 
+  * Usage: `sly_cam_mode load transitionpath1`
+  * Optional argument to load a camera path an angled offset. Usage: `sly_cam_mode load transitionpath1 45` to load `transitionpath1` with a 45 degree offset. 
+* Path
+  * Toggles path visibility. 
+  * Usage: `sly_cam_mode path` 
+
+
+Command | Usage | Description
+------------ | ------------- | -------------  
+sly_cam_node `number` | `sly_cam_node 1` | Creates a camera node, max 10. 
+sly_cam_rotate `degrees` | `sly_cam_rotate 45` | Rotates your z-axis by a specific degree amount.
 
 ### Spawning Models & Effects
 
