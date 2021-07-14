@@ -71,6 +71,7 @@ sly_cam_mode `mode` | `sly_cam_mode bezier 5` | Sets the camera mode. Available 
   * Usage: `sly_cam_mode bezier 5`
 * Save
   * Exports a camera path to the `\slymvm\campaths\` folder. Great for transitions.
+  * Usage: `sly_cam_mode save transitionpath1`
 * Load
   * Loads a saved camera path from the `\slymvm\campaths\` folder. 
   * Usage: `sly_cam_mode load transitionpath1`
