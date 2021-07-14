@@ -12,7 +12,7 @@ Download S1X at https://xlabs.dev/s1x_download
 Download the files and put the **slymvm** folder in `\[rootfolder]\S1x\scripts\`. If the scripts folder is missing you can create it.
 
 ### Reshade
-S1x is confirmed to work with Reshade 4.9.1. It may not work with other versions. Right click on s1x.exe and create a shortcut, add -multiplayer to the target and click Apply. Turn Post Processing Anti-Aliasing to Off in the Advanced Video Settings. 
+S1x is confirmed to work with Reshade 4.9.1. It may not work with other versions. Right click on s1x.exe and create a shortcut, add `-multiplayer` to the target and click Apply. Turn Post Processing Anti-Aliasing to Off in the Advanced Video Settings. 
 
 # Commands
 This mod has a ton of commands, I'll try and highlight them all but feel free to look at the code to see how they're written in-case I leave out any parameters.
