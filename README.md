@@ -34,13 +34,21 @@ You can edit the default player health by changing `player_health = 50` in `__in
 You can precache effects, models, animations, and materials by adding them in `sly_precache.lua`  
 
 ### Players / Bots
-
+Player & Bot names are case sensitive.
 Command | Usage | Description
 ------------ | ------------- | -------------  
-sly_player_add |`sly_player_add 4` | Adds designer number of bots to your match.
-fast_restart | Restarts the game instantly | `fast_restart`
-god | Gives you infinite health | `god`
-noclip | Noclip | `noclip`
+sly_player_add `number` |`sly_player_add 4` | Adds designer number of bots to your match.
+sly_player_kick `name` | `sly_player_kick RezTech` | Kicks a player from your match. `sly_player_kick all` will kick all players.
+sly_player_kill `name` | `sly_player_kill RezTech` | Kills a player. `sly_player_kill all` will kill all players.
+sly_player_move `name` | `sly_player_move RezTech` | Moves a player to your location. `sly_player_move all` will move all players to your location.
+sly_player_freeze `name` | `sly_player_freeze RezTech` | Freezes a player so they can't move or shoot. `sly_player_freeze all` will freeze all players. This is great when getting cinematics with bots to control if/when you want their AI & pathing to work.
+sly_player_unfreeze `name` | `sly_player_unfreeze RezTech` | Unfreezes a player, allowing them to move and shoot. `sly_player_unfreeze all` will unfreeze all players.
+sly_player_health `name number`| `sly_player_health RezTech 50` | Set's a player's health. `sly_player_health all 50` will give all players except host the desired health. **Currently not working.**
+sly_player_weapon `name weapon_name`| `sly_player_weapon RezTech iw5_morsloot9_mp` | Gives a player a specific weapon. **Currently only works on players, not bots.**
+sly_player_model `name model_name`| `sly_player_model RezTech infected` | Set's a player's model. It's not fully developed, "infected" works since it's a single model but other models don't work since a player's "costume" consists of multiple parts and is set a different way. 
+sly_player_getcostume `name`| `sly_player_getcostume RezTech` | Saves a player's costume. Not too useful for the average user, but a useful function for saving costumes created in the Armory. `sly_player_getcostume RezTech all` will save all of the player's costumes (they have 4) to the `slymvm\costumes\` folder.
+sly_player_setcostume `name costume_name`| `sly_player_setcostume RezTech boxer` | Set's a player's costume. Costumes aren't loaded on the fly, you need to `fast_restart` for it to take effect. **Currently only works for host**.
+
 
 ### Dolly Camera
 
