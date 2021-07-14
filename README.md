@@ -63,6 +63,11 @@ MOD_HEAD_SHOT | `sly_player_clone RezTech MOD_SUICIDE` | Spawns a death animatio
 
 ### Spawning Models & Effects
 
+Command | Usage | Description
+------------ | ------------- | -------------  
+sly_forge_model `model` | `sly_forge_model defaultactor` | Spawns a model on your location. Use `listassetpool 7` with a key to find desired models. Most models need to be precached, do so in the **precache_models()** function in `sly_precache.lua` 
+sly_forge_fx `effect` | `sly_forge_fx blood2` | Spawns an effect in front of you. Use `listassetpool 42` with a key to find desired effects and define them in the **precache_fx()** function in `sly_precache.lua`
+
 ### Actors
 I tried pretty hard to make "actors" a thing, but the way costumes work make it a bit complicated. Left the code in for people to tinker with, I'll share my research below.
 
@@ -72,8 +77,15 @@ Command | Usage | Description
 ------------ | ------------- | -------------  
 sly_function savepos | `sly_function savepos` | Saves your position.
 sly_function loadpos | `sly_function loadpos` | Loads your position to the saved location.
-sly_function get key | `sly_function get` | Returns specific player variables. Some keys: `origin, health, team, score, model, angles`
-sly_function notify key | `sly_function notify beziercalc_finished` | Calls the notify() function with a specific key. Useful for debugging.
+sly_function cloak | `sly_function cloak` | Cloaks the player.
+sly_function camera | `sly_function camera` | Alternate bind instead of noclip
+sly_function timescale | `sly_function timescale` | Useful bind that toggles between timescale 1 and 0.1
+sly_timescale `number` | `sly_timescale timescale` | Set the timescale.
+sly_function fovscale | `sly_function fovscale` | Useful bind that toggles between multiple fovscale values: `1, 0.3, 0.5, and 0.7` Modify to suit your needs
+sly_function get `key` | `sly_function get` | Returns specific player variables. Some keys: `origin, health, team, score, model, angles`
+sly_function notify `key` | `sly_function notify beziercalc_finished` | Calls the notify() function with a specific key. Useful for debugging.
 sly_function unlink | `sly_function unlink` | Unlinks you from any linked entities. Great if you're stuck in a camera path.
 sly_function dropweapon | `sly_function dropweapon` | Drops your current weapon. Great for getting a weapon's pullout animation for clips. 
-sly_function icon material | `sly_function icon headicon_dead` | Creates a waypoint hud element at your feet with a desired material. 
+sly_function icon `material` | `sly_function icon headicon_dead` | Creates a waypoint hud element at your feet with a desired material. 
+sly_function vision `vision_name` | `sly_function vision` | Sets the player's vision to a desired vision. Some visions: `default, black_bw, aftermath, end_game, near_death_mp`
+sly_function motorbike | `sly_function motorbike` | I was testing spawning functioning vehicles. This is super jank and only works on Urban. F to enter/exit, Sprint to drive
