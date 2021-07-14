@@ -11,7 +11,7 @@ Download S1x at https://xlabs.dev/s1x_download.
 Download [this mod](https://github.com/Slykuiper/S1X-Movie-Mod/archive/refs/heads/main.zip) and put the **slymvm** folder in `\[rootfolder]\S1x\scripts\`. Create the scripts folder if it's missing.
 
 ### Reshade
-S1x is confirmed to work with Reshade 4.9.1. It may not work with other versions. Create a shortcut and launch S1x that way if you want to use Reshade. Right click on s1x.exe and create a shortcut, add `-multiplayer` to the target and click Apply. Turn Post Processing Anti-Aliasing to Off in the Advanced Video Settings. **Reshade only works in private match**, any shaders using a depth pass (like Depth of Field) won't work on dedicated servers.
+S1x is confirmed to work with [Reshade 4.9.1](https://reshade.me/downloads/ReShade_Setup_4.9.1.exe). It may not work with other versions. Create a shortcut and launch S1x that way if you want to use Reshade. Right click on s1x.exe and create a shortcut, add `-multiplayer` to the target and click Apply. Turn Post Processing Anti-Aliasing to Off in the Advanced Video Settings. **Reshade only works in private match**, any shaders using a depth pass (like Depth of Field) won't work on dedicated servers.
 
 # Commands
 This mod has a ton of commands, I'll try and highlight them all but feel free to look at the code to see how they're written in-case I leave out any parameters.
