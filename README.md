@@ -18,15 +18,34 @@ This mod has a ton of commands, I'll try and highlight them all but feel free to
 Useful commands that exist in the game that'll help with movie making.  
 Use Shift + tilde to view the extended in-game console.
 
-Command | Description | Usage
+Command | Usage | Description
 ------------ | ------------- | -------------  
-listassetpool | Lists loaded in-game assets, can be filtered with keys | `listassetpool 40 mors` would return all of the MORS sniper rifle variants
-fast_restart | Restarts the game instantly | `fast_restart`
-god | Gives you infinite health | `god`
-noclip | Noclip | `noclip`
+listassetpool | `listassetpool 40 mors` |  Lists loaded in-game assets, can be filtered with keys. `listassetpool 40 mors` would return all of the MORS sniper rifle variants
+fast_restart | `fast_restart` | Restarts the game instantly
+god | `god` | Gives you unlimited health
+noclip | `noclip` | Allows you to move freely through objects
+spawnbot | `spawnbot` | Adds bots to your match. `spawnbot` will add one bot. `spawnbot 7` will add 7 bots
+kick | Kicks a bot or player from your match. | `kick RezTech`
 
 
 ### S1x Movie Mod Commands
 By default player health is set to 50 to one-shot kill with snipers.
-You can edit the default player health by changing `player_health = 50` in `__init__.lua` 
-You can precache effects, models, animations, and materials by adding them in `sly_precache.lua`
+You can edit the default player health by changing `player_health = 50` in `__init__.lua`  
+You can precache effects, models, animations, and materials by adding them in `sly_precache.lua`  
+
+### Players / Bots
+
+Command | Usage | Description
+------------ | ------------- | -------------  
+sly_player_add |`sly_player_add 4` | Adds designer number of bots to your match.
+fast_restart | Restarts the game instantly | `fast_restart`
+god | Gives you infinite health | `god`
+noclip | Noclip | `noclip`
+
+### Dolly Camera
+
+### Spawning Models & Effects
+
+### Actors
+
+### Misc & Util Functions
