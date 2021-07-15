@@ -127,8 +127,8 @@ In older titles, a player consists of a head and a body model. Because this game
 * Shoes
 * Exo
 
-I made a system to spawn and attach all of these body parts to an actor (mainly the **actorcreate()** function in `sly_actor.lua`) but one issue I ran into is properly attaching each model on the correct bone. I'm not sure which model to use as the base and attach the rest of the parts to but you can call `sly_actor_create 1` and see the result. Close but not good enough. 
-Command | Usage | Description
------------- | ------------- | -------------  
-sly_function savepos | `sly_function savepos` | Saves your position.
-sly_function loadpos | `sly_function loadpos` | Loads your position to the saved location.
+I made a system to spawn and attach all of these body parts to an actor (mainly the **actorcreate()** function in `sly_actor.lua`) but one issue I ran into is properly attaching each model on the correct bone. I'm not sure which model to use as the base and attach the rest of the parts to but you can call `sly_actor_create 1` and see the result. Close but not quite compared to Advaned Warfare's "agent" system.
+
+[![actor-agent comparison](https://raw.githubusercontent.com/Slykuiper/S1X-Movie-Mod/main/agent-actor.jpg)]()
+
+I feel like I've tried every combination of bone and model to get the animations aligned properly but still no luck. The gloves, shoes, and gear aren't linked to the proper model on the proper bone. I've exported these models with Greyhound to get their full list of bones and none of those seemed to work (I could have just missed something).
