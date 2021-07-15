@@ -79,6 +79,9 @@ sly_cam_mode `mode` | `sly_cam_mode bezier 5` | Sets the camera mode. Available 
 * Path
   * Toggles path visibility. 
   * Usage: `sly_cam_mode path` 
+* Clear
+  * Deletes all camera nodes. 
+  * Usage: `sly_cam_mode clear` 
 
 
 Command | Usage | Description
