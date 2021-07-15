@@ -49,7 +49,7 @@ sly_player_unfreeze `name` | `sly_player_unfreeze RezTech` | Unfreezes a player,
 sly_player_health `name number`| `sly_player_health RezTech 50` | Set's a player's health. `sly_player_health all 50` will give all players except host the desired health. **Currently not working.**
 sly_player_weapon `name weapon_name`| `sly_player_weapon RezTech iw5_morsloot9_mp` | Gives a player a specific weapon. **Currently only works on players, not bots.**
 sly_player_model `name model_name`| `sly_player_model RezTech infected` | Set's a player's model. It's not fully developed, "infected" works since it's a single model but other models don't work since a player's "costume" consists of multiple parts and is set a different way. 
-sly_player_getcostume `name`| `sly_player_getcostume RezTech` | Saves a player's costume. Not too useful for the average user, but a useful function for saving costumes created in the Armory. `sly_player_getcostume RezTech all` will save all of the player's costumes (they have 4) to the `\slymvm\costumes\` folder.
+sly_player_getcostume `name`| `sly_player_getcostume RezTech` | Saves a player's costume. Not too useful for the average user, but a useful function for saving costumes created in the Customization Menu. `sly_player_getcostume RezTech all` will save all of the player's costumes (they have 4) to the `\slymvm\costumes\` folder.
 sly_player_setcostume `name costume_name`| `sly_player_setcostume RezTech boxer` | Set's a player's costume. Costumes aren't loaded on the fly, you need to `fast_restart` for it to take effect. **Currently only works for host**.  
 sly_player_clone `name clone_name`| `sly_player_clone RezTech MOD_SUICIDE` | Clone's a player. Using without a second variable (`sly_player_clone RezTech`), a spawn basic clone on the player, good for clearing ragdolls and dead bodies. Using a second variable will trigger a random death animation from an array of specific dead animations. See the table below for a list of useful clone types or check **line 27** of `sly_player.lua` for a full list. I added an optional hit-location argument which may affects how which death animation gets triggered. Usage `sly_player_clone RezTech MOD_IMPACT right_hand`. Check **line 59** of `sly_player.lua` for a full list. 
 ​ | `sly_player_clone RezTech clear` | Spawns 9 ragdolls on the player. Useful for clearing all ragdolls near players.
@@ -87,14 +87,10 @@ sly_cam_node `number` | `sly_cam_node 1` | Creates a camera node, max 10.
 sly_cam_rotate `degrees` | `sly_cam_rotate 45` | Rotates your z-axis by a specific degree amount.
 
 ### Spawning Models & Effects
-
 Command | Usage | Description
 ------------ | ------------- | -------------  
 sly_forge_model `model` | `sly_forge_model defaultactor` | Spawns a model on your location. Use `listassetpool 7` with a key to find desired models. Most models need to be precached, do so in the **precache_models()** function in `sly_precache.lua` 
 sly_forge_fx `effect` | `sly_forge_fx blood2` | Spawns an effect in front of you. Use `listassetpool 42` with a key to find desired effects and define them in the **precache_fx()** function in `sly_precache.lua`
-
-### Actors
-I tried pretty hard to make "actors" a thing, but the way costumes work make it a bit complicated. Left the code in for people to tinker with, I'll share my research below.
 
 ### Misc & Util Functions
 Random debug or useful functions I made. Changing these would be a great start to tinkering with modding.
@@ -115,3 +111,24 @@ sly_function icon `material` | `sly_function icon headicon_dead` | Creates a way
 sly_function vision `vision_name` | `sly_function vision` | Sets the player's vision to a desired vision. Some visions: `default, black_bw, aftermath, end_game, near_death_mp`
 sly_function motorbike | `sly_function motorbike` | I was testing spawning functioning vehicles. This is super jank and only works on Urban. F to enter/exit, Sprint to drive
 sly_function getplayerinfo `player_name` | `sly_function getplayerinfo RezTech` | Returns player info to your external console. Name, location, weapon, etc. Expands on this function to get more information.
+
+### Actors
+I tried pretty hard to make "actors" a thing, but the way costumes work make it a bit complicated. I've given up from developing further but left the code in for people to tinker with. I'll share my research below. It would be great to have more modding support with LUA, the ability to call threads defined the GSC code from LUA would go a long way to  creating more advanced mods. Anyway, here's why Actors are a pain in the ass.
+
+In older titles, a player consists of a head and a body model. Because this game had a huge focus on customization with the Customization Menu, there are hundreds of models a player can choose to build a player's "costume". A Costume can consist of 9 different models:
+
+* Head
+* Hat
+* Eyewear
+* Gloves
+* Gear
+* Pants
+* Kneepads
+* Shoes
+* Exo
+
+I made a system to spawn and attach all of these body parts to an actor (mainly the **actorcreate()** function in `sly_actor.lua`) but one issue I ran into is properly attaching each model on the correct bone. I'm not sure which model to use as the base and attach the rest of the parts to but you can call `sly_actor_create 1` and see the result. Close but not good enough. 
+Command | Usage | Description
+------------ | ------------- | -------------  
+sly_function savepos | `sly_function savepos` | Saves your position.
+sly_function loadpos | `sly_function loadpos` | Loads your position to the saved location.
