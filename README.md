@@ -47,15 +47,15 @@ sly_player_move `name` | `sly_player_move RezTech` | Moves a player to your loca
 sly_player_freeze `name` | `sly_player_freeze RezTech` | Freezes a player so they can't move or shoot. `sly_player_freeze all` will freeze all players. This is great when getting cinematics with bots to control if/when you want their AI & pathing to work.
 sly_player_unfreeze `name` | `sly_player_unfreeze RezTech` | Unfreezes a player, allowing them to move and shoot. `sly_player_unfreeze all` will unfreeze all players.
 sly_player_health `name number`| `sly_player_health RezTech 50` | Set's a player's health. `sly_player_health all 50` will give all players except host the desired health. **Currently not working.**
-sly_player_weapon `name weapon_name`| `sly_player_weapon RezTech iw5_morsloot9_mp` | Gives a player a specific weapon. **Currently only works on players, not bots.**
+sly_player_weapon `name weapon_name`| `sly_player_weapon RezTech iw5_morsloot9_mp` | Gives a player a specific weapon.
 sly_player_model `name model_name`| `sly_player_model RezTech infected` | Set's a player's model. It's not fully developed, "infected" works since it's a single model but other models don't work since a player's "costume" consists of multiple parts and is set a different way. 
 sly_player_getcostume `name`| `sly_player_getcostume RezTech` | Saves a player's costume. Not too useful for the average user, but a useful function for saving costumes created in the Customization Menu. `sly_player_getcostume RezTech all` will save all of the player's costumes (they have 4) to the `\slymvm\costumes\` folder.
-sly_player_setcostume `name costume_name`| `sly_player_setcostume RezTech boxer` | Set's a player's costume. Costumes aren't loaded on the fly, you need to `fast_restart` for it to take effect. **Currently only works for host**.  
+sly_player_setcostume `name costume_name`| `sly_player_setcostume RezTech boxer` | Set's a player's costume. Costumes aren't loaded on the fly, you need to `fast_restart` for it to take effect. **Currently only works on real players (not bots)**.  
 sly_player_clone `name clone_name`| `sly_player_clone RezTech MOD_SUICIDE` | Clone's a player. Using without a second variable (`sly_player_clone RezTech`), a spawn basic clone on the player, good for clearing ragdolls and dead bodies. Using a second variable will trigger a random death animation from an array of specific dead animations. See the table below for a list of useful clone types or check **line 27** of `sly_player.lua` for a full list. I added an optional hit-location argument which may affects how which death animation gets triggered. Usage `sly_player_clone RezTech MOD_IMPACT right_hand`. Check **line 59** of `sly_player.lua` for a full list. 
 ​ | `sly_player_clone RezTech clear` | Spawns 9 ragdolls on the player. Useful for clearing all ragdolls near players.
 ​ | `sly_player_clone RezTech MOD_GRENADE` | Spawns a ragdoll with an explosive death animation on the player. Similar to , MOD_PROJECTIVE, MOD_PROJECTIVE_SPLASH, and MOD_EXPLOSIVE.
 ​ | `sly_player_clone RezTech MOD_SUICIDE` | Spawns a typical death animation on the player.
-​ | `sly_player_clone RezTech MOD_SUICIDE` | Spawns a death animation on the player, occasionally headshot-related.
+​ | `sly_player_clone RezTech MOD_HEADSHOT` | Spawns a death animation on the player, occasionally headshot-related.
 
 
 ### Dolly Camera
@@ -79,6 +79,9 @@ sly_cam_mode `mode` | `sly_cam_mode bezier 5` | Sets the camera mode. Available 
 * Path
   * Toggles path visibility. 
   * Usage: `sly_cam_mode path` 
+* Clear
+  * Deletes all camera nodes. 
+  * Usage: `sly_cam_mode clear` 
 
 
 Command | Usage | Description

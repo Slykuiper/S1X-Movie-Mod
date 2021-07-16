@@ -83,22 +83,19 @@ function vector_scal(vec, scale)
 end
 
 function getplayerinfo(player)
-	-- Prints player information
-    --print("==============================================")
-    --print("Player Info: ", player.name)
+	--Prints player information
+    print("==============================================")
+    print("Player Info: ", player.name)
     
-	--print("Player Origin: ", vectortostring(player.origin))
-	--print("Player Angles: ", vectortostring(player:getangles()))
+	print("Player Origin: ", vectortostring(player.origin))
+	print("Player Angles: ", vectortostring(player:getangles()))
     --print("Player Viewhands 2: " .. player:getviewmodel())
-	--print("KEYOUT_" .. player:getcurrentweapon())
-    --print("Player Weapon: " .. player:getcurrentweapon())
-	--print("Player Weapon 2: " .. player:getcurrentprimaryweapon())
-	--print("Player Equipment: " .. player:getcurrentoffhand())
+	print("Player Equipment: " .. player:getcurrentoffhand())
     --print("getweaponarray: " .. player:getweaponarray())
-    --print("getweaponattachmentdisplaynames: " .. player:getweaponattachmentdisplaynames(player:getcurrentweapon()))
+   --print("getweaponattachmentdisplaynames: " .. player:getweaponattachmentdisplaynames(player:getcurrentweapon()))
     --print("getweaponattachments: " .. player:getweaponattachments(player:getcurrentweapon()))
-    --print("Current Weapon: " .. game:getweapondisplayname(player:getcurrentweapon()) .. " || " .. player:getcurrentweapon() .. " || " .. game:getweaponmodel(player:getcurrentweapon()))
-    --print("==============================================")
+    print("Current Weapon: " .. game:getweapondisplayname(player:getcurrentweapon()) .. " || " .. player:getcurrentweapon() .. " || " .. game:getweaponmodel(player:getcurrentweapon()))
+    print("==============================================")
 end
 
 function getcamoextension(num)
@@ -515,4 +512,14 @@ function tablelength(T)
   local count = 0
   for _ in pairs(T) do count = count + 1 end
   return count
+end
+
+function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
 end

@@ -66,6 +66,8 @@ function setdvars(player)
 	game:setdvarifuninitialized("sly_player_weapon", "Give a player a weapon.")
 	game:setdvarifuninitialized("sly_player_kick", "Kick a player.")
 	game:setdvarifuninitialized("sly_player_move", "Move a player to your location.")
+	game:setdvarifuninitialized("sly_player_freeze", "Freeze a player.")
+	game:setdvarifuninitialized("sly_player_unfreeze", "Unfreeze a player.")
 	game:setdvarifuninitialized("sly_player_setcostume", "Set a player's costume.")
 	game:setdvarifuninitialized("sly_player_getcostume", "Get a player's costume.")
 	game:setdvarifuninitialized("sly_player_model", "Change a player's model.")
@@ -99,6 +101,8 @@ function setdvars(player)
 	game:setdvar("sly_player_weapon", "player gun")
 	game:setdvar("sly_player_kick", "player")
 	game:setdvar("sly_player_move", "player")
+	game:setdvar("sly_player_freeze", "player")
+	game:setdvar("sly_player_unfreeze", "player")
 	game:setdvar("sly_player_setcostume", "player costume value")
 	game:setdvar("sly_player_getcostume", "player")
 	game:setdvar("sly_player_model", "player model")
@@ -155,6 +159,10 @@ function dvarlistener(player)
 			playerkill(player)
 		elseif game:getdvar("sly_player_move") ~= "player" then
 			playermove(player)
+		elseif game:getdvar("sly_player_freeze") ~= "player" then
+			playerfreeze(player)
+		elseif game:getdvar("sly_player_unfreeze") ~= "player" then
+			playerunfreeze(player)
 		elseif game:getdvar("sly_player_setcostume") ~= "player costume value" then
 			setplayercostume(player)
 		elseif game:getdvar("sly_player_getcostume") ~= "player" then
@@ -193,32 +201,6 @@ function callfunction(player)
 		giveAmmo(player)
 	elseif getdvarargs[1] == "get" then
 		player:iclientprintln("^:", player:get(getdvarargs[2]))
-	elseif getdvarargs[1] == "freezeall" then
-		for i, player in ipairs(players) do
-			if player:getentitynumber() == 0 then
-			else
-				player:freezecontrols(true)
-			end
-		end
-	elseif getdvarargs[1] == "unfreezeall" then
-		for i, player in ipairs(players) do
-			if player:getentitynumber() == 0 then
-			else
-				player:freezecontrols(false)
-			end
-		end
-	elseif getdvarargs[1] == "freeze" then
-		for i, player in ipairs(players) do
-			if player.name == getdvarargs[2] then
-				player:freezecontrols(true)
-			end
-		end 
-	elseif getdvarargs[1] == "unfreeze" then
-		for i, player in ipairs(players) do
-			if player.name == getdvarargs[2] then
-				player:freezecontrols(false)
-			end
-		end 
 	elseif getdvarargs[1] == "unlink" then
 		unlinkplayer(player)
 	elseif getdvarargs[1] == "notify" then
@@ -255,7 +237,7 @@ function callfunction(player)
 		end
 	elseif getdvarargs[1] == "vision" then
 		player:visionsetnakedforplayer(getdvarargs[2])
-	elseif getdvarargs[1] == "spawnagent" then
+	elseif getdvarargs[1] == "cloak" then
 		player:cloakingenable()
 	elseif getdvarargs[1] == "camera" then
 		if camera == 1 then
@@ -299,7 +281,15 @@ function callfunction(player)
 		if game:getdvar("mapname") == "mp_urban" then
 			spawnmotorbike(player)
 		else 
-			player:iclientprintln("^7Change map to ^:mp_urban")
+			player:iclientprintln("^7Change the map to ^:mp_urban")
+		end
+	elseif getdvarargs[1] == "getplayerinfo" then
+		if #getdvarargs == 2 then
+			for i, player in ipairs(players) do
+				if player.name == getdvarargs[2] then
+					getplayerinfo(player)
+				end
+			end 
 		end
 	end
 end

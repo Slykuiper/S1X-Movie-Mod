@@ -7,11 +7,19 @@ function setcameramode(player)
 	cameraspeed = tonumber(getdvarargs[2])
 
 	if cameramode == "linear" and camera_node[2] ~= nil then
-		player:iclientprintln("Camera Mode set to ^:", cameramode, " ^7Speed: ^:", cameraspeed)
-		initcameraflightlinear(player, cameraspeed)
+		if camera_flight == true then
+			player:iclientprintln("Camera flight already in progress.")
+		elseif camera_flight == false then
+			player:iclientprintln("Camera Mode set to ^:", cameramode, " ^7Speed: ^:", cameraspeed)
+			initcameraflightlinear(player, cameraspeed)
+		end
 	elseif cameramode == "bezier" and camera_node[2] ~= nil then
-		player:iclientprintln("Camera Mode set to ^:", cameramode, " ^7Speed: ^:", cameraspeed)
-		initcameraflightbezier(player, cameraspeed)
+		if camera_flight == true then
+			player:iclientprintln("Camera flight already in progress.")
+		elseif camera_flight == false then
+			player:iclientprintln("Camera Mode set to ^:", cameramode, " ^7Speed: ^:", cameraspeed)
+			initcameraflightbezier(player, cameraspeed)
+		end
 	elseif cameramode == "path" and camera_node[2] ~= nil then
 		showbezierpath(player, getdvarargs[2])
 	elseif cameramode == "save" then
@@ -92,6 +100,9 @@ function setcameramode(player)
 		for i, node in ipairs(camera_node) do
 			node:delete()
 		end
+		camera_node_icon = {}
+		camera_node_model = {}
+		camera_node = {}
 		camera_node_last = 0
 		player:iclientprintln("Camera Nodes ^:cleared!")
 	end
@@ -149,15 +160,16 @@ function setcamerarotation(player)
 
 	-- rotate z axis
 	local playerangles = player:getangles()
-	print("Before Angles: (" .. playerangles.x .. ", " ..  playerangles.y .. ", " .. playerangles.z .. ")" )
+	player:iclientprintln("Before Angles: (" .. playerangles.x .. ", " ..  playerangles.y .. ", " .. playerangles.z .. ")" )
 	playerangles.z = tonumber(getdvarargs[1])
 	player:setangles(playerangles)
 	local playerangles2 = player:getangles()
-	print("After Angles: (" .. playerangles2.x .. ", " ..  playerangles2.y .. ", " .. playerangles2.z .. ")" )
+	player:iclientprintln("After Angles: (" .. playerangles2.x .. ", " ..  playerangles2.y .. ", " .. playerangles2.z .. ")" )
 end
 
 function initcameraflightlinear(player, speed)
 	-- Initialize Linear Camera Flight
+	camera_flight = true
 	revealnodes(false)
 
 	local speed = speed
@@ -196,6 +208,7 @@ end
 
 function initcameraflightbezier(player, speed)
 	-- Initialize Bezier Camera Flight
+	camera_flight = true
 	revealnodes(false)
 
 	-- define variables
@@ -300,6 +313,7 @@ function unlinkplayer(player)
 	player:setorigin(savedorigin2)
 	player:setangles(savedangles2)
 	revealnodes(true)
+	camera_flight = false
 end
 
 function koeff(x,y)

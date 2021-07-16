@@ -24,6 +24,7 @@ camera_node_last = 0
 camera_node_alldist = 0
 camera_node_partdist = {}
 camera_node_angledist = {}
+camera_flight = false
 
 actor = {}
 actor_head = {}
@@ -71,8 +72,8 @@ playercostume[8] = "shoes"
 playercostume[9] = "exo"
 
 precache_weapons()
-precache_playermodels()
-precache_playeranimations()
+precache_models()
+precache_animations()
 precache_fx()
 precache_materials()
 

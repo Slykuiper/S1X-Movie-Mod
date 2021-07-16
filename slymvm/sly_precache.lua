@@ -1,9 +1,10 @@
 function precache_weapons()
 	game:precachemodel("npc_sentry_minigun_base")
 	game:precachemodel("tag_player")
+	game:precachemodel("defaultactor")
 end
 
-function precache_playermodels()
+function precache_models()
 	--[[
 	game:precachemodel("mp_top_m_a_01a")
 	game:precachemodel("mp_head_cormack")
@@ -20,11 +21,12 @@ function precache_playermodels()
 	]]--
 end
 
-function precache_playeranimations()
+function precache_animations()
 	game:precachempanim("urban_hoverbike_idle")
 	game:precachempanim("urban_hoverbike_racer_1")
 	game:precachempanim("urban_hoverbike_racer_2")
 	game:precachempanim("pb_sprint_hold")
+	game:precachempanim("mp_stand_idle")
 	--[[
 	game:precachempanim("mp_stand_idle")
 	game:precachempanim("mp_pistol_sprint")
@@ -39,9 +41,7 @@ function precache_playeranimations()
 	game:precachempanim("pb_stand_death_chest_spin") -- nice
 	game:precachempanim("pb_stand_death_shoulder_stumble")
 	game:precachempanim("pb_stand_death_shoulderback") -- nice
-	
 	-- idle animations
-	
 	-- sprint animations
 	game:precachempanim("pb_sprint_hold")
 	game:precachempanim("pb_sprint_lmg")
@@ -63,4 +63,5 @@ end
 function precache_materials()
 	-- materials
 	game:precachematerial("white")
+	game:precachematerial("headicon_dead")
 end

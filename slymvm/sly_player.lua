@@ -2,6 +2,9 @@ function playerclone(player)
 	-- Clones player
 	local getdvarargs = splitStr(game:getdvar("sly_player_clone"))
 	game:setdvar("sly_player_clone", "player type")
+
+	-- death triggers
+	local clonearray = {'MOD_UNKNOWN', 'MOD_PISTOL_BULLET', 'MOD_RIFLE_BULLET', 'MOD_GRENADE', 'MOD_GRENADE_SPLASH', 'MOD_PROJECTILE', 'MOD_PROJECTILE_SPLASH', 'MOD_MELEE', 'MOD_HEAD_SHOT', 'MOD_CRUSH', 'MOD_TELEFRAG', 'MOD_FALLING', 'MOD_SUICIDE', 'MOD_TRIGGER_HURT', 'MOD_EXPLOSIVE', 'MOD_IMPACT'}
 	
 	if #getdvarargs == 1 then
 		for i, player in ipairs(players) do
@@ -17,18 +20,16 @@ function playerclone(player)
 					for i=1,9 do local body = player:cloneplayer(10) body:startragdoll() end
 				end
 			end
-		else
-			local sMeansOfDeath = getdvarargs[2] -- reason of death
+		else 
+			if has_value(clonearray, getdvarargs[2]) then 
+				sMeansOfDeath = getdvarargs[2]
+			else
+				sMeansOfDeath = "MOD_SUICIDE"
+			end
 			local sWeapon = player:getcurrentweapon() -- weapon used
 			local sWaitTime = 4000 -- time to wait before showing
 			local sHitLoc = "head" -- hit location
 			local vDir = vector:new(0,0,0) -- hitlocation
-
-			--[[ sMeansOfDeath
-				MOD_UNKNOWN, MOD_PISTOL_BULLET, MOD_RIFLE_BULLET, MOD_GRENADE, MOD_GRENADE_SPLASH,
-				MOD_PROJECTILE, MOD_PROJECTILE_SPLASH, MOD_MELEE, MOD_HEAD_SHOT, MOD_CRUSH, MOD_TELEFRAG,
-				MOD_FALLING, MOD_SUICIDE, MOD_TRIGGER_HURT, MOD_EXPLOSIVE, MOD_IMPACT,
-			]]--
 
 			for i, player in ipairs(players) do
 				if player.name == getdvarargs[1] then
@@ -81,7 +82,20 @@ function playerkick(player)
 	local getdvarargs = tostring(game:getdvar("sly_player_kick"))
 	game:setdvar("sly_player_kick", "player")
 
-	game:executecommand("kick " .. getdvarargs)  
+	if getdvarargs == "all" then
+		for i, player in ipairs(players) do
+			if player:getentitynumber() ~= 0 then
+				game:executecommand("kick " .. getdvarargs) 
+			end
+		end
+		player:iclientprintln("^7All players ^:kicked")
+	else
+		for i, player in ipairs(players) do
+			if player.name == getdvarargs then
+				game:executecommand("kick " .. getdvarargs) 
+			end
+		end
+	end
 end
 
 function playerkill(player)
@@ -89,12 +103,72 @@ function playerkill(player)
 	local getdvarargs = tostring(game:getdvar("sly_player_kill"))
 	game:setdvar("sly_player_kill", "player")
 	
-	for i, player in ipairs(players) do
-		if player.name == getdvarargs then
-			player:suicide()
+	if getdvarargs == "all" then
+		for i, player in ipairs(players) do
+			if player:getentitynumber() ~= 0 then
+				local fx = game:spawnfx(forge_fx["blood1"], player:gettagorigin("j_spine4"))
+				game:triggerfx(fx)
+				player:suicide()
+			end
 		end
-	end 
+		player:iclientprintln("^7All players ^:killed")
+	else
+		for i, player in ipairs(players) do
+			if player.name == getdvarargs then
+				local fx = game:spawnfx(forge_fx["blood1"], player:gettagorigin("j_spine4"))
+				game:triggerfx(fx)
+				player:suicide()
+			end
+		end
+	end
 end
+
+function playerfreeze(player)
+	-- Freezes a player.
+	-- "all" will freeze everyone except host
+	local getdvarargs = tostring(game:getdvar("sly_player_freeze"))
+	game:setdvar("sly_player_freeze", "player")
+
+	if getdvarargs == "all" then
+		for i, player in ipairs(players) do
+			if player:getentitynumber() ~= 0 then
+				player:freezecontrols(true)
+			end
+		end
+		player:iclientprintln("^7All players ^:frozen")
+	else
+		for i, player in ipairs(players) do
+			if player.name == getdvarargs then
+				player:freezecontrols(true)
+			end
+		end
+		player:iclientprintln("^7" .. getdvarargs .. " ^:frozen")
+	end
+end
+
+function playerunfreeze(player)
+	-- Unfreezes a player.
+	-- "all" will unfreeze everyone except host
+	local getdvarargs = tostring(game:getdvar("sly_player_unfreeze"))
+	game:setdvar("sly_player_unfreeze", "player")
+
+	if getdvarargs == "all" then
+		for i, player in ipairs(players) do
+			if player:getentitynumber() ~= 0 then
+				player:freezecontrols(false)
+			end
+		end
+		player:iclientprintln("^7All players ^:unfrozen")
+	else
+		for i, player in ipairs(players) do
+			if player.name == getdvarargs then
+				player:freezecontrols(false)
+			end
+		end
+		player:iclientprintln("^7" .. getdvarargs .. " ^:unfrozen")
+	end
+end
+
 
 function playermove(player)
 	-- Move a player to your origin
@@ -107,8 +181,7 @@ function playermove(player)
 
 	if getdvarargs == "all" then
 		for i, player in ipairs(players) do
-			if player:getentitynumber() == 0 then
-			else
+			if player:getentitynumber() ~= 0 then
 				player_spawn[player.name] = {}
 				player_spawn[player.name].origin = vector:new(org.x + math.floor(math.random (-50, 50)), org.y + math.floor(math.random (-50, 50)), org.z)
 				player_spawn[player.name].angles = ang
@@ -277,7 +350,11 @@ function playeradd(player)
 	local getdvarargs = tonumber(game:getdvar("sly_player_add"))
 	game:setdvar("sly_player_add", "#")
 
-	game:executecommand("spawnBot " .. getdvarargs)  
+	if getdvarargs >= 1 then
+		game:executecommand("spawnBot " .. getdvarargs)
+	else
+		player:iclientprintln("Enter number larger than 0")
+	end
 end
 
 function playerweapon(player)
@@ -288,26 +365,44 @@ function playerweapon(player)
 	if #getdvarargs == 2 then
 		for i, player in ipairs(players) do
 			if player.name == getdvarargs[1] then
-				-- no camo selected
-				--player:takeweapon(player:getcurrentweapon())
-				player:giveweapon(getdvarargs[2], 0, false)
+				player:takeweapon(player:getcurrentweapon())
+				player:giveweapon(getdvarargs[2])
 				giveAmmo(player)
-				player:switchtoweapon(getdvarargs[2])
+
+				if player:getentitynumber() == 0 then
+					player:enableweaponswitch()
+					player:enableweapons()
+					player:switchtoweapon(getdvarargs[2])
+				else
+					player:freezecontrols(false)
+					player:enableweaponswitch()
+					player:enableweapons()
+					player:switchtoweapon(getdvarargs[2])
+					game:ontimeout(function() player:freezecontrols(true) end, 10)
+				end
 			end
 		end  
 	end
 end
 
 function playerhealth(player)
-	-- Give the player a gun
+	-- Set player health
 	local getdvarargs = splitStr(game:getdvar("sly_player_health"))
 	game:setdvar("sly_player_health", "player health")
 
-	if #getdvarargs == 2 then
+	if getdvarargs == "all" then
 		for i, player in ipairs(players) do
-			if player.name == getdvarargs[1] then
-				player_health = math.floor(tonumber(getdvarargs[2]))
+			if player:getentitynumber() ~= 0 then
+				player.health = math.floor(tonumber(getdvarargs[2]))
 			end
-		end  
+		end
+		player:iclientprintln("^7All players health set to ^:" .. tonumber(getdvarargs[2]))
+	else
+		for i, player in ipairs(players) do
+			if player.name == getdvarargs then
+				player.health = math.floor(tonumber(getdvarargs[2]))
+			end
+		end
+		player:iclientprintln("^7" .. getdvarargs[1] .. " health set to ^:" .. tonumber(getdvarargs[2]))
 	end
 end

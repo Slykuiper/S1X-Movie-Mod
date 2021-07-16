@@ -342,12 +342,12 @@ function actorsetnode(player)
 			if actor_node[actornum] == nil then
 				actor_node[actornum] = {}
 				actor_node_icon[actornum] = {}
-				print("actor node created")
+				player:iclientprintln("actor node created")
 			end
 			if actor_node[actornum][nodenum] ~= nil then
 				actor_node[actornum][nodenum]:delete()
 				actor_node_icon[actornum][nodenum]:destroy()
-				print("actor node exists, deleting...")
+				player:iclientprintln("actor node exists, deleting...")
 			end
 
 			-- create actor node
