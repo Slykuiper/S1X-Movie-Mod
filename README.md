@@ -2,7 +2,9 @@
 [![S1X Movie Mod Tutorial](https://raw.githubusercontent.com/Slykuiper/S1X-Movie-Mod/main/tutorial-thumbnail.jpg)](https://www.youtube.com/watch?v=QNIUO-LwKZI)
 
 
-This is my S1x Movie Making Mod. Free to download or use code snippets in your own mod, I encourage you to learn and get into coding to have more control over your cinematics (and modding is rewarding). Mod is provided as-is, support won't be provided if you DM or reach out for support. Check out the [IW6X Scripting Guide](https://github.com/XLabsProject/iw6x-client/wiki/Scripting) for a great overview of LUA scripting for IW6x and S1x. List of S1x functions outlined [here](https://github.com/XLabsProject/s1x-client/blob/master/src/client/game/scripting/function_tables.cpp)
+This is my S1x Movie Making Mod. Free to download or use code snippets in your own mod, I encourage you to learn and get into coding to have more control over your cinematics (and modding is rewarding). Mod is provided as-is, support won't be provided if you DM or reach out for support. Check out the [IW6X Scripting Guide](https://github.com/XLabsProject/iw6x-client/wiki/Scripting) for a great overview of LUA scripting for IW6x and S1x. List of S1x functions outlined [here](https://github.com/XLabsProject/s1x-client/blob/master/src/client/game/scripting/function_tables.cpp)  
+
+Huge shoutout to Snake & the XLabs Team as well as xensik <3
 
 There is no actual Theater Mode or demo system ([confirmed](https://youtu.be/iki-tcDYsi0?t=29)) in Advanced Warfare. All cinematics created with this mod are recorded live in-game with FRAPS or OBS.  
 
