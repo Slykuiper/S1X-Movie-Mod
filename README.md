@@ -98,7 +98,8 @@ sly_forge_model `model` | `sly_forge_model defaultactor` | Spawns a model on you
 sly_forge_fx `effect` | `sly_forge_fx blood2` | Spawns an effect in front of you. Use `listassetpool 42` with a key to find desired effects and define them in the **precache_fx()** function in `sly_precache.lua`
 
 ### Misc & Util Functions
-Random debug or useful functions I made. Changing these would be a great start to tinkering with modding.
+Random debug or useful functions I made. Changing these would be a great start to tinkering with modding.  
+
 Command | Usage | Description
 ------------ | ------------- | -------------  
 sly_function savepos | `sly_function savepos` | Saves your position.
