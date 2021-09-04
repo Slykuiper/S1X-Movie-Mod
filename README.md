@@ -39,7 +39,8 @@ You can edit the default player health by changing `player_health = 50` in `__in
 You can precache effects, models, animations, and materials by adding them in `sly_precache.lua`  
 
 ### Players / Bots
-Player & Bot names are case sensitive.
+Player & Bot names are case sensitive.  
+
 Command | Usage | Description
 ------------ | ------------- | -------------  
 sly_player_add `number` |`sly_player_add 4` | Adds designated number of bots to your match.
