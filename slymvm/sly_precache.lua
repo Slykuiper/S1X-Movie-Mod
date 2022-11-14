@@ -62,6 +62,6 @@ end
 
 function precache_materials()
 	-- materials
-	game:precachematerial("white")
-	game:precachematerial("headicon_dead")
+	game:precacheshader("white")
+	game:precacheshader("headicon_dead")
 end
