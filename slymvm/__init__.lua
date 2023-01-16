@@ -22,6 +22,7 @@ camera_node_model = {}
 camera_node_path_model = {}
 camera_node_last = 0
 camera_node_alldist = 0
+camera_node_maximum = 10
 camera_node_partdist = {}
 camera_node_angledist = {}
 camera_flight = false

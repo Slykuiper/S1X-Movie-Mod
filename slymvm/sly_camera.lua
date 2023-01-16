@@ -116,7 +116,7 @@ function setcameranode(player)
 	game:setdvar("sly_cam_node", "#")
 
 	if #getdvarargs == 1 then
-		if nodenum >= 1 and nodenum <= 10 then
+		if nodenum >= 1 and nodenum <= camera_node_maximum then
 			if camera_node[nodenum] ~= nil then
 				camera_node_icon[nodenum]:destroy()
 				camera_node_model[nodenum]:delete()
@@ -134,7 +134,7 @@ function setcameranode(player)
 			camera_node_icon[nodenum].x = headpos.x
 			camera_node_icon[nodenum].y = headpos.y
 			camera_node_icon[nodenum].z = headpos.z
-			camera_node_icon[nodenum]:setmaterial(getwaypointicon(nodenum), 15, 15)
+			camera_node_icon[nodenum]:setshader(getwaypointicon(nodenum), 15, 15)
 			camera_node_icon[nodenum]:setwaypoint(true)
 			-- create camera node model
 			camera_node_model[nodenum] = game:spawn("script_model", headpos)
@@ -143,8 +143,8 @@ function setcameranode(player)
 
 			local fx = game:spawnfx(forge_fx["3dping"], headpos)
 			game:triggerfx(fx)
-		elseif nodenum > 10 then
-			player:iclientprintln("You can only set 10 nodes.")
+		elseif nodenum > camera_node_maximum then
+			player:iclientprintln("You can only set " .. camera_node_maximum .. " nodes.")
 		end
 	elseif #getdvarargs == 7 then
 		local origin = vector:new(tonumber(getdvarargs[2]), tonumber(getdvarargs[3]), tonumber(getdvarargs[4]))
@@ -196,11 +196,11 @@ function initcameraflightlinear(player, speed)
 			elseif num < camera_node_last then
 				num = num + 1
 				camera_null:moveto(camera_node[num].origin, speed, 0, 0)
-				camera_null:rotateto(camera_node[num].angles, speed, 0, 0)
+				camera_null:_meth_82B5(camera_node[num].angles, speed, 0, 0) --rotateto
 			end
 		end
 		camera_null:moveto(camera_node[num].origin, speed, 0, 0)
-		camera_null:rotateto(camera_node[num].angles, speed, 0, 0)
+		camera_null:_meth_82B5(camera_node[num].angles, speed, 0, 0) --rotateto
 		camera_timer = game:oninterval(movelinear_callback, speedms)
 	end
 end
@@ -298,7 +298,7 @@ function bezier_move(player, speed)
 			vect2angles = vector:new(vect1angles.x, vect1angles.y, vect1angles.z)
 			vect3angles = vector:new(vect1angles.x*2, vect1angles.y*2, vect1angles.z*2)
 			camera_null:moveto(vect2origin, 0.1, 0, 0)
-			camera_null:rotateto(vect2angles, 0.1, 0, 0)
+			camera_null:_meth_82B5(vect2angles, 0.1, 0, 0) --rotateto
 			val = val + 1
 		end
 	end
@@ -494,7 +494,7 @@ function setcameranodedirect(num, origin, angles)
 		camera_node_icon[num].x = headpos.x
 		camera_node_icon[num].y = headpos.y
 		camera_node_icon[num].z = headpos.z
-		camera_node_icon[num]:setmaterial(getwaypointicon(num), 15, 15)
+		camera_node_icon[num]:setshader(getwaypointicon(num), 15, 15)
 		camera_node_icon[num]:setwaypoint(true)
 		-- create camera node model
 		camera_node_model[num] = game:spawn("script_model", headpos)
