@@ -242,7 +242,7 @@ function createcountdown(max, message, notify, player)
     progressbar_bg.x = 0
     progressbar_bg.y = -80
 	progressbar_bg.color = vector:new(0.0, 0.0, 0.0)
-	progressbar_bg:setmaterial("white", (progressbar_maxwidth + (progressbar_bg_strokewidth * 2)), (10 + (progressbar_bg_strokewidth * 2)))
+	progressbar_bg:setshader("white", (progressbar_maxwidth + (progressbar_bg_strokewidth * 2)), (10 + (progressbar_bg_strokewidth * 2)))
 
     progressbar = game:newclienthudelem(player)
     progressbar.alpha = 1
@@ -253,7 +253,7 @@ function createcountdown(max, message, notify, player)
     progressbar.x = 0
     progressbar.y = -80
 	progressbar.color = vector:new(0.5, 1.0, 0.5)
-	progressbar:setmaterial("white", progressbar_maxwidth, 10)
+	progressbar:setshader("white", progressbar_maxwidth, 10)
 
 	function countdowncreator(max, message, notify)
 		if i <= max and i > 0 then
@@ -271,8 +271,8 @@ function createcountdown(max, message, notify, player)
         local progressbar_width = progressbar_maxwidth * progressbar_percent
         local progressbar_bg_width = progressbar_width + (progressbar_bg_strokewidth * 2)
         if i_bar <= input and i_bar > 0 then
-            progressbar_bg:setmaterial("white", math.floor(progressbar_bg_width), (10 + (progressbar_bg_strokewidth * 2)))
-            progressbar:setmaterial("white", math.floor(progressbar_width), 10)
+            progressbar_bg:setshader("white", math.floor(progressbar_bg_width), (10 + (progressbar_bg_strokewidth * 2)))
+            progressbar:setshader("white", math.floor(progressbar_width), 10)
 			i_bar = i_bar - 1
 		else
             progressbar_bg:destroy()
@@ -409,7 +409,7 @@ function spawnmotorbike(player)
 	motorbike:scriptmodelplayanim("urban_hoverbike_idle")
 	motorbike:enablelinkto()
     motorbike_spawned = true
-    print("motorbike_spawned = true")
+    --print("motorbike_spawned = true")
 
     if motorbikefx_timer ~= nil then
         motorbikefx_timer:clear()
@@ -420,7 +420,7 @@ function spawnmotorbike(player)
     end
     motorbikefx_timer = game:oninterval(motorbike_fx, 100)
     motorbike:setcursorhint("HINT_ACTIVE")
-	motorbike:sethintstring("Press F to enter Motorbike.")
+	motorbike:sethintstring("Press [{+activate}] to enter Motorbike.")
 	motorbike:makeusable()
     player_motorbike = false
     motorbike:onnotify("trigger", function() watchmotorbikeusage(motorbike, player) end)
@@ -432,14 +432,14 @@ function watchmotorbikeusage(motorbike, player)
         --print("exitmotorbike")
         player:notify("exitmotorbike")
         motorbike:setcursorhint("HINT_ACTIVE")
-        motorbike:sethintstring("Press F to enter ^:Motorbike")
+        motorbike:sethintstring("Press [{+activate}] to enter ^:Motorbike")
         player:unlink()
 	    player:freezecontrols(false)
 	    player:setorigin(vector:new(motorbike.origin.x + math.floor(math.random (-50, 50)), motorbike.origin.y + math.floor(math.random (-50, 50)), motorbike.origin.z))
         game:setdvar("camera_thirdperson", 0)
-        player:allowprone(true)
-        player:allowstand(true)
-        player:allowcrouch(true)
+        player:_meth_811A(true) --allowprone
+        player:_meth_8118(true) --allowstand
+        player:_meth_8119(true) --allowcrouch
         player:setstance("stand")
         player:notifyonplayercommandremove( "motorbike_active", "+breath_sprint" )
 	    player:notifyonplayercommandremove( "motorbike_active", "+melee_breath" )
@@ -452,13 +452,13 @@ function watchmotorbikeusage(motorbike, player)
         --print("entermotorbike")
         player:notify("entermotorbike")
         motorbike:setcursorhint("HINT_ACTIVE")
-	    motorbike:sethintstring("Press F to exit ^:Motorbike")
+	    motorbike:sethintstring("Press [{+activate}] to exit ^:Motorbike")
 
 	    player:setorigin(motorbike:gettagorigin("tag_body"))
 	    player:setangles(motorbike.angles)
-        player:allowprone(false)
-        player:allowstand(false)
-        player:allowcrouch(true)
+        player:_meth_811A(false) --allowprone
+        player:_meth_8118(false) --allowstand
+        player:_meth_8119(true) --allowcrouch
         player:setstance("crouch")
 	    player:playerlinkto(motorbike, "tag_body", 1, 70, 70, 20, 20, false )
         game:setdvar("camera_thirdperson", 0)
@@ -474,12 +474,12 @@ end
 function rotatemotorbike(motorbike, player)
     if motorbikerotate_timer ~= nil then
         motorbikerotate_timer:clear()
-        print("motorbikerotate_timer cleared")
+        --print("motorbikerotate_timer cleared")
     end
     function motorbike_rotate()
         if player_motorbike == true then
-            print("motorbike_rotate")
-            motorbike:rotateto(player.angles, 0.3, 0, 0)
+            --print("motorbike_rotate")
+            motorbike:_meth_82B5(player.angles, 0.3, 0, 0) --rotateto
         end
     end
     motorbikerotate_timer = game:oninterval(motorbike_rotate, 50)
@@ -487,15 +487,15 @@ end
 function trottlemotorbike(motorbike, player)
     player_motorbike_active = false
 	player:onnotify("motorbike_active", function()
-        print("motorbike_active")
+        --print("motorbike_active")
         player_motorbike_active = true
         if motorbike_timer ~= nil then
             motorbike_timer:clear()
-            print("motorbike_timer cleared")
+            --print("motorbike_timer cleared")
         end
         function motorbike_drive()
             if player_motorbike_active == true then
-                print("player_motorbike_active")
+                --print("player_motorbike_active")
                 local forward = player:gettagorigin("j_head")
 		        local endpos = vector_scal(game:anglestoforward(player:getangles()), 100)
 		        local endpos2 = vector:new(endpos.x + forward.x, endpos.y + forward.y, motorbike.origin.z)
@@ -506,7 +506,11 @@ function trottlemotorbike(motorbike, player)
         end
         motorbike_timer = game:oninterval(motorbike_drive, 50)
     end)
-    player:onnotify("motorbike_inactive", function() print("motorbike_inactive") player_motorbike_active = false motorbike_timer:clear() end)
+    player:onnotify("motorbike_inactive", function() 
+        --print("motorbike_inactive") 
+        player_motorbike_active = false 
+        motorbike_timer:clear() 
+    end)
 end
 function tablelength(T)
   local count = 0

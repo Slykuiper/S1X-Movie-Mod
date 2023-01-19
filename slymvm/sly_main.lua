@@ -222,7 +222,7 @@ function callfunction(player)
 			testhud.x = player.origin.x
 			testhud.y = player.origin.y
 			testhud.z = player.origin.z
-			testhud:setmaterial(getdvarargs[2], 35, 35)
+			testhud:setshader(getdvarargs[2], 35, 35)
 			testhud:setwaypoint(true)
 		elseif #getdvarargs == 4 then
 			if testhud ~= nil then
@@ -232,7 +232,7 @@ function callfunction(player)
 			testhud.x = player.origin.x
 			testhud.y = player.origin.y
 			testhud.z = player.origin.z
-			testhud:setmaterial(getdvarargs[2], getdvarargs[3], getdvarargs[4])
+			testhud:setshader(getdvarargs[2], getdvarargs[3], getdvarargs[4])
 			testhud:setwaypoint(true)
 		end
 	elseif getdvarargs[1] == "vision" then

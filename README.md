@@ -10,7 +10,7 @@ There is no actual Theater Mode or demo system ([confirmed](https://youtu.be/iki
 
 ### Installation
 Download S1x at https://xlabs.dev/s1x_download.  
-Download [this mod](https://github.com/Slykuiper/S1X-Movie-Mod/archive/refs/heads/main.zip) and put the **slymvm** folder in `\[rootfolder]\S1x\scripts\`. Create the scripts folder if it's missing.
+Download [this mod](https://github.com/bradstv/S1X-Movie-Mod/archive/refs/heads/main.zip) and put the **slymvm** folder in `\[rootfolder]\S1x\lua-scripts\`. Create the lua-scripts folder if it's missing.
 
 ### Reshade
 S1x is confirmed to work with [Reshade 4.9.1](https://reshade.me/downloads/ReShade_Setup_4.9.1.exe). It may not work with other versions. Create a shortcut and launch S1x that way if you want to use Reshade. Right click on s1x.exe and create a shortcut, add `-multiplayer` to the target and click Apply. Turn Post Processing Anti-Aliasing to Off in the Advanced Video Settings. **Reshade only works in private match**, any shaders using a depth pass (like Depth of Field) won't work on dedicated servers.
@@ -36,6 +36,10 @@ give | `give iw5_morsloot9_mp` | Gives you a specified weapon.
 ### S1x Movie Mod Commands
 By default player health is set to 50 to one-shot kill with snipers.
 You can edit the default player health by changing `player_health = 50` in `__init__.lua`  
+
+By default maximum camera nodes is set to 10.
+You can edit the default amount of camera nodes by changing `camera_node_maximum = 10` in `__init__.lua`  
+
 You can precache effects, models, animations, and materials by adding them in `sly_precache.lua`  
 
 ### Players / Bots

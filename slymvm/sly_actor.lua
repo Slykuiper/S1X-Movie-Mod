@@ -269,7 +269,7 @@ function actormove(player)
 		actor[num].angles = actor_node[num][1].angles
 
 		actor[num]:moveto(actor_node[num][2].origin, speed, 0, 0)
-		actor[num]:rotateto(actor_node[num][2].angles, speed, 0, 0)
+		actor[num]:_meth_82B5(actor_node[num][2].angles, speed, 0, 0) --rotateto
 	elseif #getdvarargs == 4 then
 		local num = tonumber(getdvarargs[1])
 		local speed = tonumber(getdvarargs[2])
@@ -280,7 +280,7 @@ function actormove(player)
 		actor[num].angles = actor_node[num][1].angles
 
 		actor[num]:moveto(actor_node[num][2].origin, speed, accel, deccel)
-		actor[num]:rotateto(actor_node[num][2].angles, speed, accel, deccel)
+		actor[num]:_meth_82B5(actor_node[num][2].angles, speed, accel, deccel) --rotateto
 	end
 end
 
@@ -360,7 +360,7 @@ function actorsetnode(player)
 			actor_node_icon[actornum][nodenum].x = actor_node[actornum][nodenum].origin.x
 			actor_node_icon[actornum][nodenum].y = actor_node[actornum][nodenum].origin.y
 			actor_node_icon[actornum][nodenum].z = actor_node[actornum][nodenum].origin.z
-			actor_node_icon[actornum][nodenum]:setmaterial("ui_reticle_dlc_10", 15, 15)
+			actor_node_icon[actornum][nodenum]:setshader("ui_reticle_dlc_10", 15, 15)
 			actor_node_icon[actornum][nodenum]:setwaypoint(true)
 
 			local fx = game:spawnfx(forge_fx["3dping"], actor_node[actornum][nodenum].origin)
