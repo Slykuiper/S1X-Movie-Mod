@@ -85,10 +85,10 @@ end
 function getplayerinfo(player)
 	--Prints player information
     print("==============================================")
-    print("Player Info: ", player.name)
+    print("Player Info: " .. player.name)
     
-	print("Player Origin: ", vectortostring(player.origin))
-	print("Player Angles: ", vectortostring(player:getangles()))
+	print("Player Origin: " .. vectortostring(player.origin))
+	print("Player Angles: " .. vectortostring(player:getangles()))
     --print("Player Viewhands 2: " .. player:getviewmodel())
 	print("Player Equipment: " .. player:getcurrentoffhand())
     --print("getweaponarray: " .. player:getweaponarray())
@@ -203,7 +203,7 @@ end
 TIMERS
 USAGE:
     function my_callback()
-        player:iclientprintlnbold("yay!")
+        player:iprintlnbold("yay!")
     end
     player:onnotify("timer_finished", my_callback)
     createcountup(5, "^7Starting in: ^:", "timer_finished", player)
@@ -231,7 +231,7 @@ function createcountdown(max, message, notify, player)
     progressbar_text.y = -95
 	progressbar_text.color = vector:new(1.0, 1.0, 1.0)
     progressbar_text.font = "bodyFont"
-    progressbar_text.fontscale = 0.5
+    progressbar_text.fontscale = 1
 
     progressbar_bg = game:newclienthudelem(player)
     progressbar_bg.alpha = 1
@@ -290,7 +290,7 @@ function createcountup(max, message, notify, player)
 	local i = 1
 	function countupcreator(max, message, notify)
 		if i <= max then
-			player:iclientprintlnbold(message, i)
+			player:iprintlnbold(message, i)
 			i = i + 1
 		else
 			player:notify(notify)
@@ -306,7 +306,7 @@ function savePosition(player)
 	-- Saves player's position
 	savedorigin = player.origin
     savedangles = player:getangles()
-	player:iclientprintln("Position ^:saved.")
+	player:iprintln("Position ^:saved.")
 end
 
 function loadPosition(player)
@@ -314,7 +314,7 @@ function loadPosition(player)
 	if savedorigin ~= nil then
 		player:setorigin(savedorigin)
 		player:setangles(savedangles)
-		player:iclientprintln("Position ^:loaded.")
+		player:iprintln("Position ^:loaded.")
 	end
 end
 
@@ -332,7 +332,7 @@ function setTimescale(player)
 	timescale = tonumber(game:getdvar("sly_timescale"))
 	game:setdvar("sly_timescale", "timescale")
 
-	player:iclientprintln("Timescale ^:", timescale)
+	player:iprintln("Timescale ^:", timescale)
 	game:setslowmotion(timescale, timescale, 0)
 end
 
@@ -437,9 +437,9 @@ function watchmotorbikeusage(motorbike, player)
 	    player:freezecontrols(false)
 	    player:setorigin(vector:new(motorbike.origin.x + math.floor(math.random (-50, 50)), motorbike.origin.y + math.floor(math.random (-50, 50)), motorbike.origin.z))
         game:setdvar("camera_thirdperson", 0)
-        player:_meth_811A(true) --allowprone
-        player:_meth_8118(true) --allowstand
-        player:_meth_8119(true) --allowcrouch
+        player:allowprone(true)
+        player:allowstand(true)
+        player:allowcrouch(true)
         player:setstance("stand")
         player:notifyonplayercommandremove( "motorbike_active", "+breath_sprint" )
 	    player:notifyonplayercommandremove( "motorbike_active", "+melee_breath" )
@@ -456,9 +456,9 @@ function watchmotorbikeusage(motorbike, player)
 
 	    player:setorigin(motorbike:gettagorigin("tag_body"))
 	    player:setangles(motorbike.angles)
-        player:_meth_811A(false) --allowprone
-        player:_meth_8118(false) --allowstand
-        player:_meth_8119(true) --allowcrouch
+        player:allowprone(false)
+        player:allowstand(false)
+        player:allowcrouch(true)
         player:setstance("crouch")
 	    player:playerlinkto(motorbike, "tag_body", 1, 70, 70, 20, 20, false )
         game:setdvar("camera_thirdperson", 0)
@@ -479,7 +479,7 @@ function rotatemotorbike(motorbike, player)
     function motorbike_rotate()
         if player_motorbike == true then
             --print("motorbike_rotate")
-            motorbike:_meth_82B5(player.angles, 0.3, 0, 0) --rotateto
+            motorbike:rotateto(player.angles, 0.3, 0, 0) --rotateto
         end
     end
     motorbikerotate_timer = game:oninterval(motorbike_rotate, 50)

@@ -54,7 +54,7 @@ function setdvars(player)
 	game:setdvarifuninitialized("sly_actor_move", "Move an actor across it's nodes." )
 	game:setdvarifuninitialized("sly_actor_node", "Set an actor's nodes." )
 	game:setdvarifuninitialized("sly_actor_weapon", "Set an actor's weapon." )
-	game:setdvarifuninitialized("sly_cam_mode", "Set the camera's type and speed." )
+	game:setdvarifuninitialized("sly_cam_mode", "Set the camera's type and speed. Make sure noclip is off before using." )
 	game:setdvarifuninitialized("sly_cam_node", "Create a camera node." )
 	game:setdvarifuninitialized("sly_cam_rotate", "Rotate your view angle." )
 	game:setdvarifuninitialized("sly_forge_model", "Spawn a model on your origin.")
@@ -200,7 +200,7 @@ function callfunction(player)
 	elseif getdvarargs[1] == "ammo" then
 		giveAmmo(player)
 	elseif getdvarargs[1] == "get" then
-		player:iclientprintln("^:", player:get(getdvarargs[2]))
+		player:iprintln("^:" .. player:get(getdvarargs[2]))
 	elseif getdvarargs[1] == "unlink" then
 		unlinkplayer(player)
 	elseif getdvarargs[1] == "notify" then
@@ -211,7 +211,7 @@ function callfunction(player)
 		giveAmmo(player)
 		player:switchtoweapon(getdvarargs[2])
 	elseif getdvarargs[1] == "dropweapon" then
-		player:iclientprintln("^7Weapon ^:dropped^7: " .. player:getcurrentweapon())
+		player:iprintln("^7Weapon ^:dropped^7: " .. player:getcurrentweapon())
 		local item = player:dropitem(player:getcurrentweapon())
 	elseif getdvarargs[1] == "icon" then
 		if #getdvarargs == 2 then
@@ -262,26 +262,26 @@ function callfunction(player)
 	elseif getdvarargs[1] == "fovscale" then
 		if fovscaletoggle == 3 then
 			game:setdvar("cg_fovscale", 1)
-			player:iclientprintln("^7Fovscale: ^:" .. 1)
+			player:iprintln("^7Fovscale: ^:" .. 1)
 			fovscaletoggle = 0
 		elseif fovscaletoggle == 2 then
 			game:setdvar("cg_fovscale", 0.3)
-			player:iclientprintln("^7Fovscale: ^:" .. 0.3)
+			player:iprintln("^7Fovscale: ^:" .. 0.3)
 			fovscaletoggle = 3
 		elseif fovscaletoggle == 1 then
 			game:setdvar("cg_fovscale", 0.5)
-			player:iclientprintln("^7Fovscale: ^:" .. 0.5)
+			player:iprintln("^7Fovscale: ^:" .. 0.5)
 			fovscaletoggle = 2
 		else
 			game:setdvar("cg_fovscale", 0.7)
-			player:iclientprintln("^7Fovscale: ^:" .. 0.7)
+			player:iprintln("^7Fovscale: ^:" .. 0.7)
 			fovscaletoggle = 1
 		end
 	elseif getdvarargs[1] == "motorbike" then
 		if game:getdvar("mapname") == "mp_urban" then
 			spawnmotorbike(player)
 		else 
-			player:iclientprintln("^7Change the map to ^:mp_urban")
+			player:iprintln("^7Change the map to ^:mp_urban")
 		end
 	elseif getdvarargs[1] == "getplayerinfo" then
 		if #getdvarargs == 2 then

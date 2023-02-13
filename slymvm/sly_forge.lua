@@ -13,7 +13,7 @@ function spawnforgeeffect(player)
 		local fx = game:spawnfx(forge_fx[getdvarargs[1]], savedorigin)
 		game:triggerfx(fx)
 	end
-	player:iclientprintln("^7Effect ^:", getdvarargs[1], "^7 spawned.")
+	player:iprintln("^7Effect ^:" .. getdvarargs[1] .. "^7 spawned.")
 end
 
 function spawnforgemodel(player)
@@ -40,5 +40,5 @@ function spawnforgemodel(player)
 	end
 
 	
-	player:iclientprintln("^7Model ^:", forge_num, "^7 spawned: ^:", getdvarargs[1])
+	player:iprintln("^7Model ^:" .. forge_num .. "^7 spawned: ^:" .. getdvarargs[1])
 end

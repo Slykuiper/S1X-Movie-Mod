@@ -88,7 +88,7 @@ function playerkick(player)
 				game:executecommand("kick " .. getdvarargs) 
 			end
 		end
-		player:iclientprintln("^7All players ^:kicked")
+		player:iprintln("^7All players ^:kicked")
 	else
 		for i, player in ipairs(players) do
 			if player.name == getdvarargs then
@@ -111,7 +111,7 @@ function playerkill(player)
 				player:suicide()
 			end
 		end
-		player:iclientprintln("^7All players ^:killed")
+		player:iprintln("^7All players ^:killed")
 	else
 		for i, player in ipairs(players) do
 			if player.name == getdvarargs then
@@ -135,14 +135,14 @@ function playerfreeze(player)
 				player:freezecontrols(true)
 			end
 		end
-		player:iclientprintln("^7All players ^:frozen")
+		player:iprintln("^7All players ^:frozen")
 	else
 		for i, player in ipairs(players) do
 			if player.name == getdvarargs then
 				player:freezecontrols(true)
 			end
 		end
-		player:iclientprintln("^7" .. getdvarargs .. " ^:frozen")
+		player:iprintln("^7" .. getdvarargs .. " ^:frozen")
 	end
 end
 
@@ -158,14 +158,14 @@ function playerunfreeze(player)
 				player:freezecontrols(false)
 			end
 		end
-		player:iclientprintln("^7All players ^:unfrozen")
+		player:iprintln("^7All players ^:unfrozen")
 	else
 		for i, player in ipairs(players) do
 			if player.name == getdvarargs then
 				player:freezecontrols(false)
 			end
 		end
-		player:iclientprintln("^7" .. getdvarargs .. " ^:unfrozen")
+		player:iprintln("^7" .. getdvarargs .. " ^:unfrozen")
 	end
 end
 
@@ -253,11 +253,11 @@ function getplayercostume(player)
 					exo = player:getcommonplayerdata( "costumes", activeindex, "exo")
 				})
 				local jsonstr = json.encode(costumetable)
-				local f = io.open(("S1x\\scripts\\slymvm\\costumes\\%s.json"):format(playername), "w")
+				local f = io.open(("S1x\\lua-scripts\\slymvm\\costumes\\%s.json"):format(playername), "w")
 				f:write(jsonstr)
 				f:flush()
 				f:close()
-				player:iclientprintln(playername .. "'s costume ^:saved!")
+				player:iprintln(playername .. "'s costume ^:saved!")
 			elseif #getdvarargs == 2 and getdvarargs[2] == "all" then
 				for i=0, 3 do
 					costumetable = {}
@@ -275,12 +275,12 @@ function getplayercostume(player)
 						exo = player:getcommonplayerdata( "costumes", i, "exo")
 					})
 					local jsonstr = json.encode(costumetable)
-					local f = io.open(("S1x\\scripts\\slymvm\\costumes\\%s.json"):format(playername .. "_outfit" .. i+1), "w")
+					local f = io.open(("S1x\\lua-scripts\\slymvm\\costumes\\%s.json"):format(playername .. "_outfit" .. i+1), "w")
 					f:write(jsonstr)
 					f:flush()
 					f:close()
 				end
-				player:iclientprintln("All of " .. playername .. "'s costume ^:saved!")
+				player:iprintln("All of " .. playername .. "'s costume ^:saved!")
 			end
 		end
 	end
@@ -304,10 +304,10 @@ function setplayercostume(player)
 				end
 			end
 		end
-		player:iclientprintln(getdvarargs[1] .. "'s costume set to ^:random!")
+		player:iprintln(getdvarargs[1] .. "'s costume set to ^:random!")
 	elseif #getdvarargs == 3 then
 		if getdvarargs[2] == "load" then
-			local costumepath = ("S1x\\scripts\\slymvm\\costumes\\%s.json"):format(getdvarargs[3])
+			local costumepath = ("S1x\\lua-scripts\\slymvm\\costumes\\%s.json"):format(getdvarargs[3])
 			local f = io.open(costumepath, "r")
 			if f == nil then
 				costumetable = {}
@@ -326,7 +326,7 @@ function setplayercostume(player)
 					player:notify("applyLoadout")
 				end
 			end
-			player:iclientprintln(getdvarargs[1] .. "'s costume set to ^:" .. getdvarargs[3])
+			player:iprintln(getdvarargs[1] .. "'s costume set to ^:" .. getdvarargs[3])
 		else
 			-- sly_player_costume corbin shirt 0
 			local playername = getdvarargs[1]
@@ -340,7 +340,7 @@ function setplayercostume(player)
 				end
 			end
 			print(playername .. "'s " .. category .. " set with costume value " .. costume)
-			player:iclientprintln(playername .. "'s " .. category .. " set with costume value " .. costume)
+			player:iprintln(playername .. "'s " .. category .. " set with costume value " .. costume)
 		end
 	end
 end
@@ -353,7 +353,7 @@ function playeradd(player)
 	if getdvarargs >= 1 then
 		game:executecommand("spawnBot " .. getdvarargs)
 	else
-		player:iclientprintln("Enter number larger than 0")
+		player:iprintln("Enter number larger than 0")
 	end
 end
 
@@ -396,13 +396,13 @@ function playerhealth(player)
 				player.health = math.floor(tonumber(getdvarargs[2]))
 			end
 		end
-		player:iclientprintln("^7All players health set to ^:" .. tonumber(getdvarargs[2]))
+		player:iprintln("^7All players health set to ^:" .. tonumber(getdvarargs[2]))
 	else
 		for i, player in ipairs(players) do
 			if player.name == getdvarargs then
 				player.health = math.floor(tonumber(getdvarargs[2]))
 			end
 		end
-		player:iclientprintln("^7" .. getdvarargs[1] .. " health set to ^:" .. tonumber(getdvarargs[2]))
+		player:iprintln("^7" .. getdvarargs[1] .. " health set to ^:" .. tonumber(getdvarargs[2]))
 	end
 end

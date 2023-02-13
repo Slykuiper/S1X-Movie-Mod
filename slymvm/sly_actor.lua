@@ -125,9 +125,9 @@ function actorcreate(player)
 		local fx = game:spawnfx(forge_fx["3dping"], actor[num].origin)
 		game:triggerfx(fx)
 
-		player:iclientprintln("^7Actor ^:", num, "^7 created.")
+		player:iprintln("^7Actor ^:" .. num .. "^7 created.")
 	elseif num > 10 then
-		player:iclientprintln("You can only create 10 actors.")
+		player:iprintln("You can only create 10 actors.")
 	end
 end
 
@@ -190,9 +190,9 @@ function actorcreatemb(player)
 		local fx = game:spawnfx(forge_fx["3dping"], actor[num].origin)
 		game:triggerfx(fx)
 
-		player:iclientprintln("^7Actor ^:", num, "^7 created.")
+		player:iprintln("^7Actor ^:" .. num .. "^7 created.")
 	elseif num > 10 then
-		player:iclientprintln("You can only create 10 actors.")
+		player:iprintln("You can only create 10 actors.")
 	end
 end
 
@@ -269,7 +269,7 @@ function actormove(player)
 		actor[num].angles = actor_node[num][1].angles
 
 		actor[num]:moveto(actor_node[num][2].origin, speed, 0, 0)
-		actor[num]:_meth_82B5(actor_node[num][2].angles, speed, 0, 0) --rotateto
+		actor[num]:rotateto(actor_node[num][2].angles, speed, 0, 0) --rotateto
 	elseif #getdvarargs == 4 then
 		local num = tonumber(getdvarargs[1])
 		local speed = tonumber(getdvarargs[2])
@@ -280,7 +280,7 @@ function actormove(player)
 		actor[num].angles = actor_node[num][1].angles
 
 		actor[num]:moveto(actor_node[num][2].origin, speed, accel, deccel)
-		actor[num]:_meth_82B5(actor_node[num][2].angles, speed, accel, deccel) --rotateto
+		actor[num]:rotateto(actor_node[num][2].angles, speed, accel, deccel) --rotateto
 	end
 end
 
@@ -342,12 +342,12 @@ function actorsetnode(player)
 			if actor_node[actornum] == nil then
 				actor_node[actornum] = {}
 				actor_node_icon[actornum] = {}
-				player:iclientprintln("actor node created")
+				player:iprintln("actor node created")
 			end
 			if actor_node[actornum][nodenum] ~= nil then
 				actor_node[actornum][nodenum]:delete()
 				actor_node_icon[actornum][nodenum]:destroy()
-				player:iclientprintln("actor node exists, deleting...")
+				player:iprintln("actor node exists, deleting...")
 			end
 
 			-- create actor node
@@ -366,10 +366,10 @@ function actorsetnode(player)
 			local fx = game:spawnfx(forge_fx["3dping"], actor_node[actornum][nodenum].origin)
 			game:triggerfx(fx)
 		else
-			player:iclientprintln("You can only create two nodes!")
+			player:iprintln("You can only create two nodes!")
 		end
 	else
-		player:iclientprintln("No node selected!")
+		player:iprintln("No node selected!")
 	end
 end
 
